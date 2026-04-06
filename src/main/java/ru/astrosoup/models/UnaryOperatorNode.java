@@ -1,0 +1,35 @@
+package ru.astrosoup.models;
+
+import ru.astrosoup.exceptions.EvaluatingException;
+import ru.astrosoup.exceptions.NoSuchBinaryOperatorException;
+import ru.astrosoup.exceptions.NoSuchUnaryOperatorException;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.UnaryOperator;
+
+public class UnaryOperatorNode extends Node {
+    private String operator;
+    private Node child;
+
+    private final static Map<String, UnaryOperator<Object>> unaryOperators = new HashMap<>();
+
+
+
+    public static Map<String, UnaryOperator<Object>> getUnaryOperators() {
+        return unaryOperators;
+    }
+
+    public static void addUnaryOperator(String literal, UnaryOperator<Object> operation) {
+        unaryOperators.put(literal, operation);
+    }
+
+    @Override
+    public Object evaluate(Map<String, Object> variables) throws EvaluatingException {
+        if (!unaryOperators.containsKey(operator)) {
+            throw new NoSuchUnaryOperatorException(operator);
+        }
+
+        return unaryOperators.get(operator).apply(child.evaluate(variables));
+    }
+}

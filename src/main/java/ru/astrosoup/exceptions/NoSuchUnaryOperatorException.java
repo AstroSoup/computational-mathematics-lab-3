@@ -1,0 +1,10 @@
+package ru.astrosoup.exceptions;
+
+import ru.astrosoup.models.BinaryOperatorNode;
+import ru.astrosoup.models.UnaryOperatorNode;
+
+public class NoSuchUnaryOperatorException extends EvaluatingException {
+    public NoSuchUnaryOperatorException(String operator) {
+        super("An operation for " + operator + " was not defined. Found definitions for unary operators" + UnaryOperatorNode.getUnaryOperators().keySet());
+    }
+}
