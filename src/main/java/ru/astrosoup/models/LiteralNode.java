@@ -4,7 +4,8 @@ package ru.astrosoup.models;
 import java.util.Map;
 
 /**
- * Node that contains a literal value.
+ * Class that represents a node in the AST that contains a literal value.
+ * @author astrosoup
  */
 public class LiteralNode extends Node {
 

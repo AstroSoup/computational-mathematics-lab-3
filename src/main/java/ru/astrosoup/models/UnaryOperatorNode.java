@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
+/**
+ * Class that represents unary operator node in the AST.
+ * @author astrosoup
+ */
 public class UnaryOperatorNode extends Node {
     private String operator;
     private Node child;

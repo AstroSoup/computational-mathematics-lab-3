@@ -5,6 +5,10 @@ import ru.astrosoup.exceptions.VariableNotSpecifiedException;
 
 import java.util.Map;
 
+/**
+ * Class that represents variable node in the AST.
+ * @author astrosoup
+ */
 public class VariableNode extends Node {
     String name;
 

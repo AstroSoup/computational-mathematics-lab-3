@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BinaryOperator;
 
+/**
+ * Class that represents binary operator node in the AST.
+ * @author astrosoup
+ */
 public class BinaryOperatorNode extends Node {
 
     private final String operator;

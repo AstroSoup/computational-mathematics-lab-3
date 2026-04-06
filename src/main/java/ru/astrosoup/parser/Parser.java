@@ -1,5 +1,10 @@
 package ru.astrosoup.parser;
 
-public interface Parser {
+import ru.astrosoup.models.Node;
 
+/**
+ * Parser interface.
+ */
+public interface Parser {
+    Node parse(String input);
 }
