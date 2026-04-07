@@ -13,6 +13,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -135,7 +136,7 @@ public class Main {
 
                 if (Files.exists(in)) {
                     try (BufferedReader inReader = Files.newBufferedReader(in);){
-                        String[] lines = (String[]) inReader.lines().toArray();
+                        List<String> lines = inReader.lines().toList();
                         for (String line : lines) {
                             String[] parts = line.split("=");
 
