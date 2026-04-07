@@ -13,7 +13,7 @@ import static java.lang.Character.isDigit;
  * Class implementing parser for infix expressions.
  * @author astrosoup
  */
-public class InfixArithmeticalExpressionParser implements Parser {
+public class InfixArithmeticalExpressionParser {
 
 
     private final static Map<String, OperatorInfo> operatorsInfo = new HashMap<>();
@@ -32,7 +32,7 @@ public class InfixArithmeticalExpressionParser implements Parser {
      * @param input a string representing infix expression.
      * @return Node representing the root of AST.
      */
-    public Node parse(String input) {
+    public static Node parse(String input) {
 
         List<Token> tokens = tokenize(input);
         Stack<Node> output = new Stack<>();
@@ -43,12 +43,7 @@ public class InfixArithmeticalExpressionParser implements Parser {
             switch (token.getType()) {
 
                 case NUMBER -> {
-                    if (token.getText().contains(".")) {
-                        output.push(new LiteralNode(Double.parseDouble(token.getText())));
-                    } else {
-                        output.push(new LiteralNode(Double.parseDouble(token.getText())));
-                        //output.push(new LiteralNode(Long.parseLong(token.getText())));
-                    }
+                    output.push(new LiteralNode(Double.parseDouble(token.getText())));
                 }
 
                 case VARIABLE -> {
@@ -119,7 +114,7 @@ public class InfixArithmeticalExpressionParser implements Parser {
      * @param output The stack on which current operand nodes are.
      * @param token The operation token.
      */
-    private void popOperator(Stack<Node> output, Token token) {
+    private static void popOperator(Stack<Node> output, Token token) {
 
         switch (token.getType()) {
 
@@ -143,7 +138,7 @@ public class InfixArithmeticalExpressionParser implements Parser {
      * @param input input string.
      * @return List of tokens representing tokenized input.
      */
-    private List<Token> tokenize(String input) {
+    private static List<Token> tokenize(String input) {
         List<Token> tokens = new ArrayList<>();
         input = input.replaceAll(" ", "");
 
@@ -158,8 +153,7 @@ public class InfixArithmeticalExpressionParser implements Parser {
                 StringBuilder number = new StringBuilder();
                 boolean dot = false;
 
-                while (i < input.length() &&
-                        (isDigit(input.charAt(i)) || input.charAt(i) == '.')) {
+                while (i < input.length() && (isDigit(input.charAt(i)) || input.charAt(i) == '.')) {
 
                     if (input.charAt(i) == '.') {
                         if (dot) throw new RuntimeException("Invalid number");
