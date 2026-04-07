@@ -1,6 +1,6 @@
 package ru.astrosoup.parser;
 
-import ru.astrosoup.models.Node;
+import ru.astrosoup.models.ast.Node;
 
 /**
  * Parser interface.

@@ -1,4 +1,4 @@
-package ru.astrosoup.models;
+package ru.astrosoup.models.ast;
 
 import ru.astrosoup.exceptions.EvaluatingException;
 import ru.astrosoup.exceptions.VariableNotSpecifiedException;

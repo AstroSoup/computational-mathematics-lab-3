@@ -1,6 +1,6 @@
 package ru.astrosoup.exceptions;
 
-import ru.astrosoup.models.BinaryOperatorNode;
+import ru.astrosoup.models.ast.BinaryOperatorNode;
 
 public class NoSuchBinaryOperatorException extends EvaluatingException {
     public NoSuchBinaryOperatorException(String operator) {

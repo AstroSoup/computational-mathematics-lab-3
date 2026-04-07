@@ -1,7 +1,6 @@
-package ru.astrosoup.models;
+package ru.astrosoup.models.ast;
 
 import ru.astrosoup.exceptions.EvaluatingException;
-import ru.astrosoup.exceptions.NoSuchBinaryOperatorException;
 import ru.astrosoup.exceptions.NoSuchUnaryOperatorException;
 
 import java.util.HashMap;
@@ -13,12 +12,15 @@ import java.util.function.UnaryOperator;
  * @author astrosoup
  */
 public class UnaryOperatorNode extends Node {
-    private String operator;
-    private Node child;
+    private final String operator;
+    private final Node child;
 
     private final static Map<String, UnaryOperator<Object>> unaryOperators = new HashMap<>();
 
-
+    public UnaryOperatorNode(String operator, Node child) {
+        this.operator = operator;
+        this.child = child;
+    }
 
     public static Map<String, UnaryOperator<Object>> getUnaryOperators() {
         return unaryOperators;
