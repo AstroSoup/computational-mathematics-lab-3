@@ -2,6 +2,7 @@ package ru.astrosoup.models.ast;
 
 import ru.astrosoup.exceptions.EvaluatingException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,4 +16,8 @@ public abstract class Node {
      * @return evaluated Node.
      */
     public abstract Object evaluate(Map<String, Object> variables) throws EvaluatingException;
+
+    public Object evaluate() throws EvaluatingException {
+        return evaluate(new HashMap<>());
+    }
 }
