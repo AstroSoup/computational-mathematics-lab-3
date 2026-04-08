@@ -12,16 +12,14 @@ import ru.astrosoup.service.OperatorInfo;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+
+import static ru.astrosoup.models.integrals.IntegralCalculationHandler.STEP;
+
 
 public class Main {
 
-    public static void main(String[] args) {
-        Integer i = 100;
-
+    public static void init() {
         BinaryOperatorNode.addBinaryOperator("+", (Object a, Object b) -> {
             if (a instanceof Double && b instanceof Double) {
                 return (double)a + (double)b;
@@ -118,6 +116,11 @@ public class Main {
         InfixArithmeticalExpressionParser.addOperator("/", new OperatorInfo(2, false));
         InfixArithmeticalExpressionParser.addOperator("^", new OperatorInfo(3, true));
 
+    }
+
+    public static void main(String[] args) {
+        init();
+
         if (args.length > 0) {
             for (String p : args) {
 
@@ -154,7 +157,10 @@ public class Main {
                                 case "m" -> m = IntegralCalculationHandler.Method.values()[Integer.parseInt(parts[1]) - 1];
                             }
                         }
-                        System.out.println("For file \"" + p + "\" the resulting integral is: " + IntegralCalculationHandler.calculate(f, a, b, eps, m));
+                        System.out.println("For file \"" + p + "\": ");
+                        invokeIntegral(f,a,b,eps,m);
+
+
                     } catch (IOException e) {
                         System.out.println("An exception occurred while reading the file.");
                     } catch (BadContentException e) {
@@ -176,15 +182,27 @@ public class Main {
                 Double eps = Double.parseDouble(inReader.readLine());
                 System.out.print("Please input the selected method for calculating the integral left rectangle method(1), middle rectangle method(2), right rectangle method(3), trapezoid method(4), simpson method(5):\nm = ");
                 IntegralCalculationHandler.Method m = IntegralCalculationHandler.Method.values()[Integer.parseInt(inReader.readLine()) - 1];
-                System.out.println("The resulting integral is: " + IntegralCalculationHandler.calculate(f, a, b, eps, m));
+
+                invokeIntegral(f,a,b,eps,m);
+
+
+
 
             } catch (IOException e) {
                 System.out.print("An exception during handling IO operations occurred.");
             }
+        }
+    }
+    private static void invokeIntegral(Node f, Double a, Double b, Double eps, IntegralCalculationHandler.Method m) {
 
+
+        Double breakPoint = IntegralCalculationHandler.findBreakpoint(f, a, b, eps);
+        Double integral = IntegralCalculationHandler.calculate(f, a, b, eps, m);
+        if (!Objects.isNull(breakPoint)) {
+            System.out.println("The function experiences discontinuance at: " + breakPoint + ". You can try excluding the point from the range for better results.");
 
         }
-
+        System.out.println("The resulting integral is: " + integral);
     }
 }
 

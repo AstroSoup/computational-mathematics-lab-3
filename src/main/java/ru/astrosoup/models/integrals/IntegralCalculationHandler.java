@@ -4,15 +4,39 @@ import ru.astrosoup.models.ast.Node;
 
 import java.util.Map;
 
+
 public class IntegralCalculationHandler {
-
-
+    public static final double STEP = 0.0001;
     public enum Method {
         RECTANGLE_LEFT,
         RECTANGLE_MIDDLE,
         RECTANGLE_RIGHT,
         TRAPEZOID,
         SIMPSON
+    }
+
+    public static Double findBreakpoint(Node function, Double a, Double b, Double eps) {
+        double h = eps;
+        final double THRESHOLD = 1000;
+
+        Double fLast = (Double) function.evaluate(Map.of("x", b));
+
+        if (fLast.isInfinite()) {
+            return b;
+        }
+        fLast = (Double) function.evaluate(Map.of("x", a));
+        if (fLast.isInfinite()) {
+            return a;
+        }
+
+        for (double x = a + h; x < b; x += h) {
+            Double fCurrent = (Double) function.evaluate(Map.of("x", x));
+            if (Math.abs(fCurrent - fLast) > THRESHOLD || fLast.isNaN() || fCurrent.isNaN()) {
+                return x;
+            }
+            fLast = fCurrent;
+        }
+        return null;
     }
 
     public static Double calculate(Node function, Double a, Double b, Double eps, Method type) {
@@ -166,7 +190,7 @@ public class IntegralCalculationHandler {
                 }
             }
         }
-        System.out.println("\rValue calculated with n = " + n + ".");
+        System.out.print("\r");
         return i1;
     }
 }
